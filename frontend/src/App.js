@@ -25,7 +25,7 @@ function App() {
         </p>
         <div>
         <label htmlFor='char-input'>How many characters does </label>
-        <input id='char-input' type='text' placeholder="my string"/><span> </span>
+        <input id='char-input' type='text' placeholder="my"/><span> </span>
         <button onClick={handleSubmit}>have?</button>
         <div>
           <h3 id='char-count' data-testid="char-count"> </h3>
