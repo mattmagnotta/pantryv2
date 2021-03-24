@@ -1,8 +1,8 @@
 import os
 
 from .base import *
-
-SECRET_KEY = os.environ.get("SECRET_KEY")
+ SECRET_KEY = 'cx8&=ho5h7_(0i_g&(j%@^0)3)(*lw7xq^2a2&v=4sder2gwaj'
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = False
 ALLOWED_HOSTS = [os.environ.get("PRODUCTION_HOST")]
 

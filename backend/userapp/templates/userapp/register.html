@@ -1,0 +1,16 @@
+{% extends 'pantryapp/base.html' %}
+
+{% block content %}
+<div id='register_div'>
+    <h3>Register</h3>
+    <form action="{% url 'userapp:register_user' %}" method="post">
+        {% csrf_token %}
+        <div class="input-field inline" id="login_div">
+            <input type="text" name="username" placeholder="username" required />
+            <input type="email" name="email" placeholder="email" required />
+            <input type="password" name="password" placeholder="password" required />
+            <button class='btn'>Register</button>
+        </div>
+    </form>
+
+{% endblock %}
