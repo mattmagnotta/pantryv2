@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom"
 export default function MyIngredients() {
 
   const [ingredient_name, setIngredientName] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState("1");
   const [ingredientData, setIngredientData] = useState([])
   const [redirect, setRedirect] = useState(false)
 
@@ -83,15 +83,14 @@ export default function MyIngredients() {
     return ingredientData.map(function(item,i){
       return (
         <>
-        <tr>
-        <td key={i}>{item.fields.name}</td>
-        <td key={i+1}>{item.fields.quantity}</td>
+        <tr key={i}>
+        <td>{item.fields.name}</td>
+        <td>{item.fields.quantity}</td>
         </tr>
         </>
       )
     })
   }
-
   if(redirect === true){
     return <Redirect to='recipes'></Redirect>
   }
@@ -113,6 +112,7 @@ export default function MyIngredients() {
               <Form.Label>quantity</Form.Label>
               <Form.Control
                 type="quantity"
+                defaultValue={1}
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
               />

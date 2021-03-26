@@ -27,7 +27,7 @@ def get_recipes(request):
         ingredient_params.append(ingredient.name)
 
     ingredient_params = ','.join(ingredient_params)
-    url = 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' + ingredient_params + ','+ '&number=100' + '&apiKey=' + spoonacular_api_key
+    url = 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' + ingredient_params + ','+ '&number=30' + '&apiKey=' + spoonacular_api_key
     response = requests.get(url)
     recipes = json.loads(response.text)
     # for recipe in recipes:
@@ -39,8 +39,21 @@ def get_recipes(request):
     #     'recipes' : recipes,
     #
     # }
-    print(recipes)
     return JsonResponse(recipes, safe=False)
+
+def make_recipe(request):
+    spoonacular_api_key = '1e39dead13444e7c93b95e003707e3cb'
+    data = json.loads(request.body.decode('utf-8'))
+    recipe_id = data['recipe_id']
+    url = 'https://api.spoonacular.com/recipes/' + str(recipe_id)  + '/information/?apiKey=' + spoonacular_api_key
+    response = requests.get(url)
+    recipe_information = json.loads(response.text)
+
+    context = {
+        'recipe': recipe_information,
+    }
+
+    return JsonResponse(context, safe=False)
 
 def clear_table(request):
     ingredients = request.user.ingredients.all()

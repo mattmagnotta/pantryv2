@@ -1,7 +1,8 @@
 from django.shortcuts import render, reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse,HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.core import serializers
 import json
 
 
@@ -32,7 +33,17 @@ def login_user(request):
         return HttpResponse('invalid login')
 
 
+def get_user(request):
+    user = request.user.username
+    data = [{'user':user,
+             'loggedIn':'true'
+            }]
+    if user != '':
+        return JsonResponse(data, safe=False)
+    else:
+        return HttpResponse('No User')
+
 
 def logout_user(request):
     logout(request)
-    return HttpResponseRedirect(reverse('pantryapp:index'))
+    return HttpResponse('User Logged Out')

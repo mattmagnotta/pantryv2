@@ -25,11 +25,13 @@ export default  function Signup() {
   const [usernameTaken, setusernameTaken] = useState(false)
   const [emailTaken, setemailTaken] = useState(false)
 
+
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
 
   async function handleSubmit(event) {
+
     var csrftoken = getCookie('csrftoken');
     event.preventDefault();
     const json = JSON.stringify({username:username, email:email, password:password});

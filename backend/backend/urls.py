@@ -10,6 +10,7 @@ urlpatterns = [
     path("save_ingredient/", save_ingredient, name="save_ingredient"),
     path("get_ingredients/", views.get_ingredients, name="get_ingredients"),
     path("get_recipes/", views.get_recipes, name="get_recipes"),
+    path("make_recipe/", views.make_recipe, name="make_recipe"),
     path("clear_table/", views.clear_table, name="clear_table"),
     path("", include('userapp.urls')),
 ]
