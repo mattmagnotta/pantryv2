@@ -1,7 +1,9 @@
 import React, { useState,useEffect, useRef} from "react";
+import { MdFavoriteBorder } from 'react-icons/md';
 import axios from 'axios'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import {Container,CardContainer} from './RecipesElements'
 export default function Recipes(props){
   function getCookie(name) {
     var cookieValue = null;
@@ -45,20 +47,27 @@ export default function Recipes(props){
   const cardGenerator = () => {
     return recipeData.map(function(recipe,i){
       return (
-        <Card  id={recipe.id} ref={recipeRef} key={i} style={{ width: '18rem' }}>
+        <Card id={recipe.id} ref={recipeRef} key={i} style={{ width: '18rem', margin:'30px' }}>
           <Card.Img variant="top" src={recipe.image} />
-          <Card.Body>
-            <Card.Title>{recipe.title}</Card.Title>
+          <Card.Body style={{display:'flex',flexDirection:'column',justifyContent:'center'}}>
+            <Card.Title style={{fontSize:'15px',textAlign:'center'}}>{recipe.title}</Card.Title>
             <Card.Text>
               {recipe.description}
             </Card.Text>
-            <Button onClick={viewRecipe} variant="primary">View Recipe</Button>
+            <div style={{display:'flex', justifyContent:'space-evenly'}}>
+              <Button className='custom-btn' onClick={viewRecipe} variant="primary">View Recipe</Button>
+              <MdFavoriteBorder size={30}/>
+            </div>
           </Card.Body>
         </Card>
       )
     })
   }
   return(
-    <div>{cardGenerator()}<button onClick={checkState}> </button></div>
+    <Container>
+      <CardContainer>
+      {cardGenerator()}
+      </CardContainer>
+    </Container>
   )
 }

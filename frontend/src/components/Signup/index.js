@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import {SignupContainer} from "./SignupElements"
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
 export default  function Signup() {
@@ -63,11 +64,12 @@ export default  function Signup() {
   }
   else{
     return (
-      <div className="Login">
-        <Form onSubmit={handleSubmit}>
+      <SignupContainer>
+        <h1>Signup</h1>
+        <Form style={{width:"500px"}} onSubmit={handleSubmit}>
         <Form.Group size="lg" controlId="username">
           {usernameTaken === true && <p>Username taken..</p>}
-          <Form.Label>Username</Form.Label>
+          <Form.Label style={{color:'white'}}>Username</Form.Label>
           <Form.Control
             autoFocus
             type="username"
@@ -77,7 +79,7 @@ export default  function Signup() {
         </Form.Group>
           <Form.Group size="lg" controlId="email">
             {emailTaken === true && <p>Email taken...</p>}
-            <Form.Label>Email</Form.Label>
+            <Form.Label style={{color:'white'}}>Email</Form.Label>
             <Form.Control
               autoFocus
               type="email"
@@ -86,18 +88,18 @@ export default  function Signup() {
             />
           </Form.Group>
           <Form.Group size="lg" controlId="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label style={{color:'white'}}>Password</Form.Label>
             <Form.Control
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
-          <Button block size="lg" type="submit" disabled={!validateForm()}>
+          <Button className="custom-btn" block size="lg" type="submit" disabled={!validateForm()}>
             Login
           </Button>
         </Form>
-      </div>
+      </SignupContainer>
 
     );
   }

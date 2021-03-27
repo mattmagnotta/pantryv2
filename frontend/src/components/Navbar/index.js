@@ -1,30 +1,17 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import axios from 'axios'
 import Dropdown from "react-bootstrap/Dropdown";
 import { useHistory } from 'react-router'
 import {FaBars} from 'react-icons/fa'
+import { UserProvider, UserContext, UserDispatchContext } from '../../Context'
 import {Nav,NavbarContainer,MobileIcon,NavMenu,NavItem,NavLinks} from './NavbarElements'
 
 const Navbar = ({toggle}) => {
   const [isLoggedIn, setIsLoggedin] = useState(false)
   const [username, setUsername] = useState('')
   const [isSignedUp, setIsSignedup] = useState(false)
-
-// request the user
-  useEffect(async () => {
-
-    // await axios.get('/get_user').then((res) =>{
-    //   setUsername(res.data[0].user)
-    //   if(res.data === 'No User'){
-    //     setIsLoggedin(false)
-    //   }
-    //   else if(res.data[0].loggedIn === 'true'){
-    //
-    //     setIsLoggedin(true)
-    //   }
-    console.log(isLoggedIn)
-    // })
-  });
+  const userDetails = React.useContext(UserContext);
+  const setUserDetails = useContext(UserDispatchContext);
 
   function handleLogout(event){
     axios.get('/logout_user/').then((res) => {
@@ -32,8 +19,6 @@ const Navbar = ({toggle}) => {
       setUsername('')
     })
   }
-
-
     return (
       <>
         <Nav>
@@ -62,7 +47,7 @@ const Navbar = ({toggle}) => {
               </NavItem>
               <NavItem>
                 <Dropdown>
-                  <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  <Dropdown.Toggle style={{backgroundColor:"#41588c",border:"0px",boxShadow: '0 0px 1px rgba(255, 255, 255, 0.075) inset, 0 0 0px rgba(255, 255, 255, 0.6)'}} variant="success" id="dropdown-basic">
                     Account
                   </Dropdown.Toggle>
                   <Dropdown.Menu>

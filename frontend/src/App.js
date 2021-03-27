@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component,useEffect,useContext,useState} from 'react';
 import axios from 'axios';
 import './App.css';
 import Home from './pages'
@@ -6,8 +6,10 @@ import Login  from './components/Login'
 import Signup  from './components/Signup'
 import Navbar  from './components/Navbar'
 import Recipes  from './components/Recipes'
+import MakeRecipes  from './components/MakeRecipes'
 import MyIngredients  from './components/MyIngredients'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {UserProvider,UserContext, UserDispatchContext} from './Context'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,45 +19,32 @@ import {
 
 require('dotenv').config()
 
-class App extends Component {
-  constructor(props) {
-   super(props);
-   this.state = {
-       user:'',
-       data:'',
-    }
-   this.updateState = this.updateState.bind(this)
- }
- componentDidMount(){
-   axios.get('/logout_user/').then((res) => {
-     this.setState({
-       user:res.data
-     })
-     console.log(this.state.user)
-   })
- }
-   updateState(childData){
-     this.setState({data:childData})
-     console.log(this.state.data)
-   }
+function App(){
+  const userDetails = useContext(UserContext);
+  const setUserDetails = useContext(UserDispatchContext);
+
+  // useEffect(() => {
+  //   axios.get('/get_user/').then((res) => {
+  //     setUserDetails({username:res.data})
+  //   })
+  // });
 
 
-
-
-  render (){
     return (
+      <UserProvider>
       <Router>
           <Navbar/>
           <Route path="/login" component={Login} />
           <Route path="/register_user" component={Signup} />
           <Route path="/ingredients" component={MyIngredients} />
-          <Route path="/recipes" render={(props) => (
-              <Recipes {...props} cbFxn={this.updateState} />)}/>
+          <Route path="/recipes" component={Recipes} />
+          <Route path="/make_recipes" component={MakeRecipes} />
           <Route exact path="/" component={Home} />
       </Router>
+      </UserProvider>
     );
   }
 
-}
+
 
 export default App;

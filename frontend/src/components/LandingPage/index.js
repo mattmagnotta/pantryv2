@@ -4,7 +4,7 @@ import {LandingContainer }from './LandingPageElements'
 export default function LandingPage(){
   return (
     <LandingContainer style={{backgroundImage: `url(${idk})`,backgroundSize:'cover'}}>
-        yoo
+    
     </LandingContainer>
   )
 }

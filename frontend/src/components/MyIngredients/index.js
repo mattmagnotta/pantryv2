@@ -1,8 +1,11 @@
 import React, { useState,useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
 import axios from 'axios';
 import { Redirect } from "react-router-dom"
+import {Container,IngredientsContainer, TableContainer} from './IngredientElements'
+
 export default function MyIngredients() {
 
   const [ingredient_name, setIngredientName] = useState("");
@@ -78,14 +81,17 @@ export default function MyIngredients() {
       window.location.reload()
     })
   }
+  function consolog(){
+    console.log(ingredientData)
+  }
   // generates table from with response data
   const tableGenerator = () => {
     return ingredientData.map(function(item,i){
       return (
         <>
         <tr key={i}>
-        <td>{item.fields.name}</td>
-        <td>{item.fields.quantity}</td>
+        <td style={{color:'white'}}>{item.fields.name}</td>
+        <td style={{color:'white'}}>{item.fields.quantity}</td>
         </tr>
         </>
       )
@@ -96,20 +102,22 @@ export default function MyIngredients() {
   }
   else{
     return (
-      <>
-        <div className="Ingredient_name">
+      <Container>
+        <IngredientsContainer>
+          <h3>Step 1 - Add one ingredient at a time</h3>
           <Form onSubmit={handleSubmit}>
           <Form.Group size="lg" controlId="ingredient_name">
-            <Form.Label>ingredient</Form.Label>
+            <Form.Label style={{color:'white'}}>Ingredient</Form.Label>
             <Form.Control
               autoFocus
+              defaultValue='apple'
               type="ingredient_name"
               value={ingredient_name}
               onChange={(e) => setIngredientName(e.target.value)}
             />
           </Form.Group>
             <Form.Group size="lg" controlId="quantity">
-              <Form.Label>quantity</Form.Label>
+              <Form.Label style={{color:'white'}}>quantity</Form.Label>
               <Form.Control
                 type="quantity"
                 defaultValue={1}
@@ -117,21 +125,26 @@ export default function MyIngredients() {
                 onChange={(e) => setQuantity(e.target.value)}
               />
             </Form.Group>
-            <Button block size="lg" type="submit" >
-              Enter
+            <Button className="custom-btn" block size="lg" type="submit" >
+              Add Ingredient
             </Button>
           </Form>
-        </div>
-        <table>
-          <tr>
-            <th>Ingredient</th>
-            <th>Quantity</th>
-          </tr>
-          {tableGenerator()}
-        </table>
-        <button onClick={getRecipes} type='submit'>Get Recipes</button>
-        <button onClick={clearTable} type='submit'>Clear</button>
-      </>
+          <TableContainer>
+          {ingredientData.length > 0 && <div style={{}}>
+            <h3>Step 2 - Click get recipes</h3>
+            <Table striped bordered >
+            <tr>
+              <th style={{color:'white'}}>Ingredient</th>
+              <th style={{color:'white'}}>Quantity</th>
+            </tr>
+            {tableGenerator()}
+          </Table>
+            <Button  className="custom-btn" style={{marginTop:'10px'}} block size='lg' onClick={getRecipes} type='submit'>Get Recipes</Button>
+            </div>
+          }
+          </TableContainer>
+        </IngredientsContainer>
+      </Container>
     );
- }
+  }
 }
