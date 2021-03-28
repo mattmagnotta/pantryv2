@@ -20,20 +20,19 @@ import {
 require('dotenv').config()
 
 function App(){
-  const userDetails = useContext(UserContext);
+  const userDetails = React.useContext(UserContext);
   const setUserDetails = useContext(UserDispatchContext);
-
-  // useEffect(() => {
-  //   axios.get('/get_user/').then((res) => {
-  //     setUserDetails({username:res.data})
-  //   })
-  // });
-
+  useEffect(() => {
+    axios.get('/get_user/').then((res) => {
+      if(res.data[0].username !== undefined)
+        setUserDetails({isLoggedIn:true})
+    })
+  },[]);
 
     return (
-      <UserProvider>
       <Router>
           <Navbar/>
+          {userDetails.username}
           <Route path="/login" component={Login} />
           <Route path="/register_user" component={Signup} />
           <Route path="/ingredients" component={MyIngredients} />
@@ -41,10 +40,7 @@ function App(){
           <Route path="/make_recipes" component={MakeRecipes} />
           <Route exact path="/" component={Home} />
       </Router>
-      </UserProvider>
     );
   }
-
-
 
 export default App;

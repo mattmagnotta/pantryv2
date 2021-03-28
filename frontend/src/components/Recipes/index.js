@@ -56,7 +56,7 @@ export default function Recipes(props){
             </Card.Text>
             <div style={{display:'flex', justifyContent:'space-evenly'}}>
               <Button className='custom-btn' onClick={viewRecipe} variant="primary">View Recipe</Button>
-              <MdFavoriteBorder size={30}/>
+              <MdFavoriteBorder size={40}/>
             </div>
           </Card.Body>
         </Card>

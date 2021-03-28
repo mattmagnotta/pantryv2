@@ -7,20 +7,27 @@ import { UserProvider, UserContext, UserDispatchContext } from '../../Context'
 import {Nav,NavbarContainer,MobileIcon,NavMenu,NavItem,NavLinks} from './NavbarElements'
 
 const Navbar = ({toggle}) => {
-  const [isLoggedIn, setIsLoggedin] = useState(false)
-  const [username, setUsername] = useState('')
+  // const [isLoggedIn, setIsLoggedin] = useState(false)
+  // const [username, setUsername] = useState('')
   const [isSignedUp, setIsSignedup] = useState(false)
   const userDetails = React.useContext(UserContext);
   const setUserDetails = useContext(UserDispatchContext);
 
+
   function handleLogout(event){
+    event.preventDefault()
     axios.get('/logout_user/').then((res) => {
-      setIsLoggedin(false)
-      setUsername('')
+      setUserDetails({isLoggedIn:false})
     })
   }
+
+  function checkStateagain(){
+    console.log(userDetails)
+  }
+
     return (
       <>
+
         <Nav>
           <NavbarContainer>
             <MobileIcon onClick={toggle}>
@@ -51,11 +58,10 @@ const Navbar = ({toggle}) => {
                     Account
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item href="/register_user">Sign-up</Dropdown.Item>
-                    {isLoggedIn === true &&
-                    <Dropdown.Item onClick={handleLogout} href="logout_user" >Logout</Dropdown.Item>}
-                    {isLoggedIn === false &&
-                    <Dropdown.Item href="login">Login</Dropdown.Item>}
+                    {userDetails.isLoggedIn ? <div>
+                    </div> : <Dropdown.Item href="/register_user">Sign-up</Dropdown.Item>}
+
+                    {userDetails.isLoggedIn ?  <Dropdown.Item onClick={handleLogout} href="logout_user">Logout</Dropdown.Item> : <Dropdown.Item href="login">Login</Dropdown.Item>}
                   </Dropdown.Menu>
                 </Dropdown>
               </NavItem>
